@@ -2,7 +2,7 @@
 
 import os
 import sys
-#import string
+import string
 
 from argparse import ArgumentParser
 
@@ -13,7 +13,7 @@ class ArtiFusion(object):
         self.input_table = input_table
         self.working_dir = working_dir
         self.swap_pos = []
-        self.compl_dict = str.maketrans("ACGTacgtNnXx", "TGCAtgcaNnXx")
+        self.compl_dict = string.maketrans("ACGTacgtNnXx", "TGCAtgcaNnXx")
 
         self.gene_map = IOMethods.get_gene_symbol_map(gene_symbols_file)
         self.trans_map = IOMethods.get_trans_map(bed_file)
@@ -288,7 +288,7 @@ def main():
 
     af = ArtiFusion(args.input_table, args.working_dir, args.reference_genome, args.bed_file, args.gene_symbols_file)
 
-    f.run()
+    af.run()
 
 if __name__ == '__main__':
     main()
