@@ -75,7 +75,7 @@ class ArtiFusion(object):
                 print("{} : {}".format(len(swap_seq + exon_seq), (ratio*size)))
                 swap_seq = exon_seq + swap_seq
                 swap_size += block_sizes[i]
-                swaps.append((chrom,exon_start,exon_end))
+                swaps.append((chrom, exon_start, exon_end))
 
                 bp = "{}:{}:{}".format(chrom, abs_block_starts[i-1] + block_sizes[i-1], strand)
                 if len(swap_seq) > ratio * size:
@@ -87,12 +87,12 @@ class ArtiFusion(object):
                 exon_end = exon_start + block_sizes[i]
                 exon_seq = self.chr_map[chrom][exon_start:exon_end]
 
-                print("Exon {}: ({},{})".format(i,exon_start,exon_end))
+                print("Exon {}: ({},{})".format(i, exon_start, exon_end))
                 print("{} : {}".format(len(swap_seq + exon_seq), (ratio*size)))
 
                 swap_seq += exon_seq
                 swap_size += block_sizes[i]
-                swaps.append((chrom,exon_start,exon_end))
+                swaps.append((chrom, exon_start, exon_end))
 
 
                 bp = "{}:{}:{}".format(chrom, abs_block_starts[i+1], strand)
@@ -260,7 +260,7 @@ class ArtiFusion(object):
                                                                          sel_id_2,
                                                                          bp_2,
                                                                          ratio,
-                                                                         len(swap_seq) / size,
+                                                                         float(len(swap_seq)) / size,
                                                                          swap_seq))
 
 

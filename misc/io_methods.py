@@ -21,26 +21,9 @@ def grant_permissions(path, mode):
         for file in files:
             os.chmod(file, mode)
 
-def get_fastq_files(paths):
-    '''This function returns a list of fastq files for the given list of paths.'''
-    fastqs = []
-    for path in paths:
-        if os.path.isdir(path):
-            files = os.listdir(path)
-            for file in files:
-                file_path = os.path.join(path,file)
-                if os.path.isfile(file_path) and file.endswith((".fastq.gz","fastq")):
-                    fastqs.append(file_path)
-                elif os.path.isdir(file_path):
-                    fastqs_tmp = IOMethods.get_fastq_files([file_path])
-                    fastqs.extend(fastqs_tmp)
-        elif os.path.isfile(path) and path.endswith((".fastq.gz","fastq")):
-            fastqs.append(path)
-    return fastqs
-
 def get_gene_symbol_map(infile):
     '''This function loads the reference gene symbol mapping.'''
-    print("Loading gene symbols into memory... (input={})".format(infile))
+    print("Loading gene symbols into memory... (input={})".format(os.path.abspath(infile)))
     gene_map = {}
     with open(infile) as inf:
         for line in inf:
@@ -52,7 +35,7 @@ def get_gene_symbol_map(infile):
 
 def get_trans_map(infile):
     '''This function loads the reference transcripts database into memory.'''
-    print("Loading transcriptome into memory... (input={})".format(infile))
+    print("Loading transcriptome into memory... (input={})".format(os.path.abspath(infile)))
     trans_map = {}
     with open(infile) as inf:
         for line in inf:
@@ -73,7 +56,7 @@ def get_trans_map(infile):
 
 def get_fasta_map(infile):
     '''This function loads the genome assembly fasta into memory.'''
-    print("Loading genome into memory... (input={})".format(infile))
+    print("Loading genome into memory... (input={})".format(os.path.abspath(infile)))
     chr_map = {}
     for seq_record in SeqIO.parse(infile, 'fasta'):
         chr_map[seq_record.id] = str(seq_record.seq)

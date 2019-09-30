@@ -32,7 +32,7 @@ class GTF2Symbol(object):
 
         outf = open(self.outfile, "w")
 
-        for key in trans_to_gene.iterkeys():
+        for key in sorted(trans_to_gene, key=lambda x: (trans_to_gene[x], x)):
             outf.write(key + "\t" + trans_to_gene[key] + "\n")
 
         outf.close()
